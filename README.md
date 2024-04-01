@@ -69,12 +69,8 @@ _Below is an example of how you can instruct your audience on installing and set
 <!-- USAGE EXAMPLES -->
 ## Usage
 
-Use this space to show useful examples of how a project can be used. Additional screenshots, code examples and demos work well in this space. You may also link to more resources.
-
-_For more examples, please refer to the [Documentation](https://example.com)_
-
-<p align="right">(<a href="#readme-top">back to top</a>)</p>
-
+To use this API after starting the project you must go to http://localhost/{port}/api-docs
+Here you will find more information.
 
 ## Changelog
 
@@ -96,7 +92,3 @@ Varujan - [@Rick Gamer](https://vk.com/id770209554) - varujxelaci@gmail.com
 GitHub: [https://github.com/DmsEuarRubin/ResturantAPI](https://github.com/DmsEuarRubin)
 
 <p align="right"><a href="#readme-top">back to top</a></p>
-[Bootstrap.com]: https://img.shields.io/badge/Bootstrap-563D7C?style=for-the-badge&logo=bootstrap&logoColor=white
-[Bootstrap-url]: https://getbootstrap.com
-[JQuery.com]: https://img.shields.io/badge/jQuery-0769AD?style=for-the-badge&logo=jquery&logoColor=white
-[JQuery-url]: https://jquery.com 
