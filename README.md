@@ -86,7 +86,8 @@ Here you will find more information.
     - [x] Armenian
     - [ ] Chinese
     - [ ] Spanish
-
+- [ ] Add Frontend
+- [ ] Optimize the project
 ## Contact
 
 Varujan - [@Rick Gamer](https://vk.com/id770209554) - varujxelaci@gmail.com
