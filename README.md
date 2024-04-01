@@ -32,7 +32,6 @@ User Management: Easily create, update, and manage user accounts with features l
 Task Management: Efficiently manage tasks with endpoints for creating, updating, retrieving, and deleting tasks.
 
 Reservation Handling: Seamlessly handle restaurant reservations with functionalities for buying reservations and finding existing reservations.
-<p align="right">(<a href="#readme-top">back to top</a>)</p>
 
 <!-- GETTING STARTED -->
 ## Getting Started
@@ -52,19 +51,29 @@ This is an example of how to list things you need to use the software and how to
 
 _Below is an example of how you can instruct your audience on installing and setting up your app. This template doesn't rely on any external dependencies or services._
 
-1. Get a free API Key at [https://example.com](https://example.com)
-2. Clone the repo
+1. Clone the repo
    ```sh
-   git clone https://github.com/your_username_/Project-Name.git
+   git clone https://github.com/DmsEuarRubin/ResturantAPI.git
    ```
-3. Install NPM packages
+2. Install NPM packages
    ```sh
    npm install
    ```
-4. Enter your API in `config.js`
-   ```js
-   const API_KEY = 'ENTER YOUR API';
+3. Enter your acces secret key in `.env`
+   ```env
+   ACCESS_SECRET_KEY = 'ENTER YOUR SECRET KEY';
    ```
+4. Enter your database information in `config/config.json`
+   ```json
+     "development": {
+    "username": "",
+    "password": "",
+    "database": "",
+    "host": "127.0.0.1",
+    "dialect": ""
+  },
+   ```
+   
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
