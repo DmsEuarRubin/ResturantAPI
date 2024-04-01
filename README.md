@@ -65,19 +65,14 @@ _Below is an example of how you can instruct your audience on installing and set
    ```
 4. Enter your database information in `config/config.json`
    ```json
-     "development": {
-    "username": "",
-    "password": "",
-    "database": "",
+    "development": {
+    "username": "postgres",
+    "password": "testpass",
+    "database": "testdb",
     "host": "127.0.0.1",
-    "dialect": ""
-  },
+    "dialect": "postgres"
+   }
    
-
-<p align="right">(<a href="#readme-top">back to top</a>)</p>
-
-
-
 <!-- USAGE EXAMPLES -->
 ## Usage
 
