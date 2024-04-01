@@ -1,6 +1,4 @@
-<!-- Improved compatibility of back to top link: See: https://github.com/othneildrew/Best-README-Template/pull/73 -->
 <a name="readme-top"></a>
-<!-- PROJECT LOGO -->
 <br />
 <div align="center">
   <a href="https://github.com/DmsEuarRubin/ResturantAPI">
@@ -12,7 +10,6 @@
   <p align="center">This is the official github of Resturant API </p>
 </div>
 
-<!-- ABOUT THE PROJECT -->
 ## About The Project
 
 
@@ -33,7 +30,6 @@ Task Management: Efficiently manage tasks with endpoints for creating, updating,
 
 Reservation Handling: Seamlessly handle restaurant reservations with functionalities for buying reservations and finding existing reservations.
 
-<!-- GETTING STARTED -->
 ## Getting Started
 
 This is an example of how you may give instructions on setting up your project locally.
@@ -73,7 +69,6 @@ _Below is an example of how you can instruct your audience on installing and set
     "dialect": "postgres"
    }
    
-<!-- USAGE EXAMPLES -->
 ## Usage
 
 To use this API after starting the project you must go to http://localhost/{port}/api-docs
