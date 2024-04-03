@@ -76,17 +76,18 @@ Here you will find more information.
 
 ## Changelog
 
-- [x] Add Token System
-- [x] Add Bcrypt hasher
+- [x] Add access token system
+- [x] Add bcrypt hasher
 - [x] More bags fixed
-- [x] Add More requests
-- [x] Multi-language Support
+- [x] Add more requests
+- [ ] Add refresh token system
+- [x] Multi-language support
     - [x] English
     - [x] Russian
     - [x] Armenian
     - [ ] Chinese
     - [ ] Spanish
-- [ ] Add Frontend
+- [ ] Add frontend
 - [ ] Optimize the project
 ## Contact
 
