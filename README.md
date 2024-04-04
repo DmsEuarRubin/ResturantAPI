@@ -80,7 +80,7 @@ Here you will find more information.
 - [x] Add bcrypt hasher
 - [x] More bags fixed
 - [x] Add more requests
-- [ ] Add refresh token system
+- [x] Add refresh token system
 - [x] Multi-language support
     - [x] English
     - [x] Russian
