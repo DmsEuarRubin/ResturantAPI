@@ -55,9 +55,10 @@ _Below is an example of how you can instruct your audience on installing and set
    ```sh
    npm install
    ```
-3. Enter your acces secret key in `.env`
+3. Enter your access and refresh secret keys here `.env`
    ```env
-   ACCESS_SECRET_KEY = 'ENTER YOUR SECRET KEY';
+   ACCESS_TOKEN_SECRET = 'ENTER YOUR SECRET KEY';
+   REFRESH_TOKEN_SECRET = 'ENTER YOUR SECRET KEY';
    ```
 4. Enter your database information in `config/config.json`
    ```json
@@ -68,7 +69,6 @@ _Below is an example of how you can instruct your audience on installing and set
     "host": "127.0.0.1",
     "dialect": "postgres"
    }
-   
 ## Usage
 
 To use this API after starting the project you must go to http://localhost/{port}/api-docs
