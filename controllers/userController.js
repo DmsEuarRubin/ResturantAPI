@@ -8,6 +8,8 @@ require('dotenv').config();
 const createUser = async (req, res) => {
     const language = req.body.language;
     try {
+        if(!req.cookies.accessToken && !req.cookies.refreshToken){
+
         await Users.create({
             username: req.body.username,
             email: req.body.email,
@@ -15,11 +17,22 @@ const createUser = async (req, res) => {
             password: await passwordHasher(req),
             language: req.body.language
         }).then(data => {
-            const accessToken = jwt.sign({ email: data.email}, process.env.ACCESS_TOKEN_SECRET, {expiresIn: '24h'});
-            if(language === "ARM") return res.status(201).json({message: "Օգտատերը հաջողությամբ ստեղծվեց!", user: data, token: accessToken})
-            else if(language === "RUS") return res.status(201).json({message: "Пользователь успешно создан!", user: data, token: accessToken})
-            else return res.status(201).json({message: "User successfully created!", user: data, token: accessToken})
+            const accessToken = jwt.sign({ email: data.email}, process.env.ACCESS_TOKEN_SECRET, {expiresIn: '1h'});
+            const refreshToken = jwt.sign({ email: data.email}, process.env.REFRESH_TOKEN_SECRET, {expiresIn: '7d'});
+            res.cookie('accessToken', accessToken, { httpOnly: true, maxAge: 604800000 });
+            res.cookie('refreshToken', refreshToken, { httpOnly: true, maxAge: 604800000 });
+            if(language === "ARM") return res.status(201).json({message: "Օգտատերը հաջողությամբ ստեղծվեց!", user: data})
+            else if(language === "RUS") return res.status(201).json({message: "Пользователь успешно создан!", user: data})
+            else return res.status(201).json({message: "User successfully created!", user: data})
         })
+    } 
+    else {
+        
+        if(language === "ARM") return res.status(400).json({message: `Դուք չեք կարող նոր հաշիվ ստեղծել, քանի որ արդեն օգտագործում եք մեկ այլ հաշիվ: Խնդրում ենք նախ դուրս գալ!`})
+        else if(language === "RUS") return res.status(400).json({message: `Вы не можете создать новую учетную запись, потому что уже используете другую сперва выйдите из аккаунта!`})
+        else return res.status(400).json({message: `You can't create a new account because you're already using another one. Please log out first!`})
+    
+    }
     } catch (error) {
         if(error.message === "Validation error: Validation len on username failed")
         {
@@ -258,9 +271,11 @@ const updateUser = async (req, res) => {
     }
 }
 const loginUser = async (req, res) => {
-    const user = await Users.findOne({ where: {email: req.body.email}})
+    const user = await Users.findOne({ where: {email: req.body.email}});
+    if(!user) return res.status(404).json({message: `User not found!`});
     const language = user.language;
     try {
+    if(!req.cookies.accessToken && !req.cookies.refreshToken){
     if(req.body.email && req.body.password){
         if(await Users.findOne({where: {email: req.body.email}})){
             const info = await Users.findOne({where: {email: req.body.email}});
@@ -273,20 +288,29 @@ const loginUser = async (req, res) => {
                 else {
                     if(language === "ARM"){
                         if(result){
-                            const accessToken = jwt.sign({ email: info.email }, process.env.ACCESS_TOKEN_SECRET, {expiresIn: '24h'});
-                            return res.status(200).json({message: `Դուք հաջողությամբ մուտք եք գործել!`, token: accessToken});
+                            const accessToken = jwt.sign({ email: info.email }, process.env.ACCESS_TOKEN_SECRET, {expiresIn: '1h'});
+                            const refreshToken = jwt.sign({ email: info.email}, process.env.REFRESH_TOKEN_SECRET, {expiresIn: '7d'});
+                            res.cookie('accessToken', accessToken, { httpOnly: true, maxAge: 604800000 });
+                            res.cookie('refreshToken', refreshToken, { httpOnly: true, maxAge: 604800000 });
+                            return res.status(200).json({message: `Դուք հաջողությամբ մուտք եք գործել!`});
                         } else return res.status(400).json({message: `Գաղտնաբառը սխալ է!`});
                     }
                     else if(language === "RUS"){
                         if(result){
-                            const accessToken = jwt.sign({ email: info.email }, process.env.ACCESS_TOKEN_SECRET, {expiresIn: '24h'});
-                            return res.status(200).json({message: `Вы успешно входите в систему!`, token: accessToken});
+                            const accessToken = jwt.sign({ email: info.email }, process.env.ACCESS_TOKEN_SECRET, {expiresIn: '1h'});
+                            const refreshToken = jwt.sign({ email: info.email}, process.env.REFRESH_TOKEN_SECRET, {expiresIn: '7d'});
+                            res.cookie('accessToken', accessToken, { httpOnly: true, maxAge: 604800000 });
+                            res.cookie('refreshToken', refreshToken, { httpOnly: true, maxAge: 604800000 });
+                            return res.status(200).json({message: `Вы успешно входите в систему!`});
                         } else return res.status(400).json({message: `Неправильный пароль!`});
                     }
                     else {
                         if(result){
-                            const accessToken = jwt.sign({ email: info.email }, process.env.ACCESS_TOKEN_SECRET, {expiresIn: '24h'});
-                            return res.status(200).json({message: `You are successfully logging in!`, token: accessToken});
+                            const accessToken = jwt.sign({ email: info.email }, process.env.ACCESS_TOKEN_SECRET, {expiresIn: '1h'});
+                            const refreshToken = jwt.sign({ email: info.email}, process.env.REFRESH_TOKEN_SECRET, {expiresIn: '7d'});
+                            res.cookie('accessToken', accessToken, { httpOnly: true, maxAge: 604800000 });
+                            res.cookie('refreshToken', refreshToken, { httpOnly: true, maxAge: 604800000 });
+                            return res.status(200).json({message: `You are successfully logging in!`});
                         } else return res.status(400).json({message: `The password is incorrect!`});
                     }
             }
@@ -302,6 +326,37 @@ const loginUser = async (req, res) => {
         else if(language === "RUS") return res.status(400).json({message: `Введите адрес электронной почты и пароль!`});
         else return res.status(400).json({message: `Enter the email and password!`});
     }
+ } else {
+        if(language === "ARM") return res.status(400).json({message: `Դուք չեք կարող մուտք գործել ձեր հաշիվ, քանի որ արդեն օգտագործում եք մեկ այլ հաշիվ: Խնդրում ենք նախ դուրս գալ!`})
+        else if(language === "RUS") return res.status(400).json({message: `Вы не можете войти в учетную запись, поскольку уже используете другую. Пожалуйста, сначала выйдите из системы!`})
+        else return res.status(400).json({message: `You can't log in to your account because you're already using another one. Please log out first!`})
+    
+    }
+    } catch (error) {
+        if(language === "ARM"){
+            console.log(error.message);
+            return res.status(500).json({message: `Սերվերի սխալ: ${error.name}`})
+        }
+        else if(language === "RUS"){
+            console.log(error.message);
+            return res.status(500).json({message: `Ошибка сервера: ${error.name}`})
+        }
+        else {
+            console.log(error.message);
+            return res.status(500).json({message: `Server error: ${error.name}`})
+        }
+    }
+}
+const logOut = async (req, res) => {
+    const useremail = getUserEmail(req, res);
+    const user = await Users.findOne({ where: {email: useremail}})
+    const language = user.language;
+    try {
+            res.clearCookie('refreshToken')
+            res.clearCookie('accessToken');
+        if(language === "ARM") return res.status(200).json({message: `Դուք դուրս եք եկել ձեր հաշվից!`})
+        else if(language === "RUS") return res.status(200).json({message: `Вы вышли из аккаунто!`})
+        else return res.status(200).json({message: `You are logged out!`})
         
     } catch (error) {
         if(language === "ARM"){
@@ -323,5 +378,6 @@ module.exports = {
     getUser,
     removeUser,
     updateUser,
-    loginUser
+    loginUser,
+    logOut
 }

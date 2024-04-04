@@ -1,7 +1,7 @@
 {
   "swagger": "2.0",
   "info": {
-    "title": "toDoList API",
+    "title": "Resturant API",
     "description": "This is my first project. Don't judge too harshly",
     "version": "1.0.0"
   },
